@@ -3,113 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yash Shah - AI & Voice Assistant Developer</title>
+    <title>Yash Shah - AI Engineer & Voice Assistant Developer</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
         :root {
-            --color-primary: #32b8c6;
-            --color-secondary: #1d7480;
-            --color-accent: #ff5459;
-            --color-bg-dark: #0a0e12;
-            --color-bg-darker: #060809;
-            --color-text: #f5f5f5;
-            --color-text-muted: #a7a9a9;
-            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --primary: #00f0ff;
+            --primary-glow: rgba(0, 240, 255, 0.4);
+            --secondary: #7b2cbf;
+            --accent: #ff006e;
+            --bg-dark: #0a0a0f;
+            --bg-darker: #05050a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text: #ffffff;
+            --text-muted: #a0a0b0;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        [data-theme="light"] {
+            --primary: #0066ff;
+            --primary-glow: rgba(0, 102, 255, 0.3);
+            --secondary: #7b2cbf;
+            --accent: #ff006e;
+            --bg-dark: #f8f9fa;
+            --bg-darker: #ffffff;
+            --bg-card: rgba(0, 0, 0, 0.02);
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(0, 0, 0, 0.02);
+            --glass-border: rgba(0, 0, 0, 0.1);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--color-bg-darker);
-            color: var(--color-text);
+            background: var(--bg-darker);
+            color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Animated Background */
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0a0e12 0%, #1a1f2e 50%, #0a0e12 100%);
-            z-index: -2;
-        }
-
-        .cursor-trail {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--color-primary), transparent);
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.6;
-            transition: transform 0.1s ease;
-        }
-
-        .particles {
+        /* Advanced Background with Mesh Gradient */
+        .bg-mesh {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
+            background: 
+                radial-gradient(at 20% 30%, var(--secondary) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, var(--accent) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, var(--primary) 0px, transparent 50%),
+                var(--bg-darker);
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: meshMove 15s ease infinite;
         }
 
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: float linear infinite;
+        @keyframes meshMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.15;
-            }
-            90% {
-                opacity: 0.15;
-            }
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* Navigation */
+        /* Glassmorphism Navigation */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
-            background: rgba(10, 14, 18, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(50, 184, 198, 0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 0.8rem 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            text-decoration: none;
-            letter-spacing: -0.02em;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -119,48 +108,192 @@
         }
 
         .nav-links a {
-            color: var(--color-text);
+            color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s var(--ease-smooth);
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            padding: 0.5rem 1rem;
         }
 
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            background: var(--color-primary);
-            transition: width 0.3s var(--ease-smooth);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--color-primary);
+        .nav-links a:hover::before {
+            width: 80%;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .theme-toggle-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
 
-        /* Landing Page */
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        /* Hero Section with 3D Card */
         .landing {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 5%;
+            padding: 8rem 5% 5rem;
             position: relative;
+        }
+
+        .hero-3d-card {
+            perspective: 1500px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card-inner {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-content {
-            text-align: center;
-            max-width: 900px;
             position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 5rem 4rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            animation: fadeSlideDown 1s ease;
+        }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeSlideUp 1s 0.2s ease backwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .typing-container {
+            min-height: 3rem;
+            margin-bottom: 2rem;
+            animation: fadeSlideUp 1s 0.4s ease backwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.8rem;
+            background: var(--primary);
+            margin-left: 0.3rem;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            animation: fadeSlideUp 1s 0.6s ease backwards;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeSlideUp 1s 0.8s ease backwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Floating Tech Icons */
         .floating-icons {
             position: absolute;
             width: 100%;
@@ -173,305 +306,190 @@
         .tech-icon {
             position: absolute;
             font-size: 3rem;
-            opacity: 0.3;
-            animation: float-icon 3s ease-in-out infinite;
-            transition: all 0.3s var(--ease-smooth);
+            opacity: 0.15;
+            animation: floatIcon 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--primary));
         }
 
-        .tech-icon:hover {
-            opacity: 1;
-            transform: scale(1.2);
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
         }
 
-        @keyframes float-icon {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
+        .tech-icon:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .tech-icon:nth-child(2) { top: 15%; right: 8%; animation-delay: 0.5s; }
+        .tech-icon:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 1s; }
+        .tech-icon:nth-child(4) { bottom: 15%; right: 12%; animation-delay: 1.5s; }
+        .tech-icon:nth-child(5) { top: 50%; left: 3%; animation-delay: 2s; }
+        .tech-icon:nth-child(6) { top: 45%; right: 5%; animation-delay: 2.5s; }
 
-        .tech-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-        .tech-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 0.5s; }
-        .tech-icon:nth-child(3) { bottom: 30%; left: 5%; animation-delay: 1s; }
-        .tech-icon:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 1.5s; }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--color-primary), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s var(--ease-smooth);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--color-text-muted);
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s 0.2s var(--ease-smooth) backwards;
-            min-height: 2rem;
-        }
-
-        .typing-animation {
-            border-right: 3px solid var(--color-primary);
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { border-color: var(--color-primary); }
-            51%, 100% { border-color: transparent; }
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--color-text-muted);
-            margin-bottom: 3rem;
-            line-height: 1.8;
-            animation: fadeInUp 1s 0.4s var(--ease-smooth) backwards;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s 0.6s var(--ease-smooth) backwards;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-smooth);
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
-        }
-
-        .btn-primary {
-            background: var(--color-primary);
-            color: var(--color-bg-dark);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(50, 184, 198, 0.4);
-        }
-
-        .magnetic-btn {
-            position: relative;
-            transition: transform 0.2s ease;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color-text);
-            border: 2px solid var(--color-primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--color-primary);
-            color: var(--color-bg-dark);
-            transform: translateY(-3px);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Dashboard Section */
+        /* Dashboard Section with Bento Grid */
         .dashboard {
             min-height: 100vh;
-            padding: 8rem 5% 5rem;
+            padding: 10rem 5% 5rem;
             display: none;
         }
 
-        .dashboard.active {
-            display: block;
+        .dashboard.active { display: block; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
         }
 
         .section-title {
             font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--color-primary), #ffffff);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 1rem;
         }
 
         .section-subtitle {
             font-size: 1.2rem;
-            color: var(--color-text-muted);
-            margin-bottom: 4rem;
+            color: var(--text-muted);
         }
 
-        /* Filter Controls */
-        .filter-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.7rem 1.5rem;
-            background: rgba(50, 184, 198, 0.1);
-            border: 1px solid rgba(50, 184, 198, 0.3);
-            border-radius: 25px;
-            color: var(--color-text);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-smooth);
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--color-primary);
-            color: var(--color-bg-dark);
-            border-color: var(--color-primary);
-        }
-
-        /* Projects Grid */
-        .projects-grid {
+        /* Bento Grid Layout */
+        .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 5rem;
         }
 
-        .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(50, 184, 198, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s var(--ease-smooth);
-            cursor: pointer;
+        .bento-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(50px);
+            cursor: pointer;
         }
 
-        .project-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            transition: transform 0.4s var(--ease-smooth);
-        }
-
-        .project-card:hover .project-image {
-            transform: scale(1.05) rotateZ(2deg);
-        }
-
-        .project-card::before {
+        .bento-item::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(50, 184, 198, 0.1), transparent 50%);
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--primary-glow), transparent 60%);
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .project-card:hover::before {
+        .bento-item:hover::before {
             opacity: 1;
         }
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--color-primary);
-            box-shadow: 0 20px 40px rgba(50, 184, 198, 0.2);
+        .bento-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px var(--primary-glow);
+        }
+
+        .bento-large {
+            grid-column: span 6;
+            grid-row: span 2;
+        }
+
+        .bento-medium {
+            grid-column: span 6;
+        }
+
+        .bento-small {
+            grid-column: span 4;
         }
 
         .project-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px var(--primary));
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--bg-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
             margin-bottom: 1rem;
         }
 
         .project-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--color-primary);
-        }
-
-        .project-tech {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: rgba(50, 184, 198, 0.2);
-            border-radius: 15px;
-            font-size: 0.85rem;
             margin-bottom: 1rem;
-            color: var(--color-primary);
+            color: var(--text);
         }
 
         .project-description {
-            color: var(--color-text-muted);
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .project-link {
-            color: var(--color-primary);
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            transition: gap 0.3s var(--ease-smooth);
+            transition: gap 0.3s ease;
         }
 
         .project-link:hover {
             gap: 1rem;
         }
 
-        /* Voice Assistant Section */
-        .voice-assistant {
+        /* Voice Assistant Section - Enhanced */
+        .voice-section {
             min-height: 100vh;
-            padding: 8rem 5% 5rem;
+            padding: 10rem 5% 5rem;
             display: none;
         }
 
-        .voice-assistant.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .voice-section.active { display: flex; flex-direction: column; align-items: center; }
 
         .voice-container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(50, 184, 198, 0.2);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 30px;
             padding: 3rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .voice-visualizer {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             margin: 0 auto 2rem;
             position: relative;
         }
@@ -480,68 +498,94 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--color-primary), var(--color-secondary));
-            box-shadow: 0 0 50px var(--color-primary);
+            background: radial-gradient(circle at 30% 30%, var(--primary), var(--accent));
+            box-shadow: 0 0 60px var(--primary-glow);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s var(--ease-smooth);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
         .voice-orb:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 80px var(--color-primary);
+            transform: scale(1.08);
+            box-shadow: 0 0 100px var(--primary-glow);
         }
 
         .voice-orb.listening {
-            animation: pulse 1.5s ease-in-out infinite;
+            animation: voicePulse 1.5s ease-in-out infinite;
         }
 
-        @keyframes pulse {
+        @keyframes voicePulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 50px var(--color-primary);
+                box-shadow: 0 0 60px var(--primary-glow);
             }
             50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 100px var(--color-primary);
+                transform: scale(1.15);
+                box-shadow: 0 0 120px var(--primary-glow);
             }
         }
 
         .voice-icon {
-            font-size: 4rem;
-            color: var(--color-bg-dark);
+            font-size: 5rem;
+            filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+        }
+
+        .voice-waves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            opacity: 0;
+            animation: waveExpand 2s ease-out infinite;
+        }
+
+        .voice-waves:nth-child(2) { animation-delay: 0.5s; }
+        .voice-waves:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes waveExpand {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
         }
 
         .voice-status {
             text-align: center;
             font-size: 1.2rem;
-            color: var(--color-text-muted);
+            color: var(--text-muted);
             margin-bottom: 2rem;
+            font-weight: 500;
         }
 
-        .chat-container {
+        .chat-history {
             max-height: 400px;
             overflow-y: auto;
             margin-bottom: 2rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
         }
 
         .chat-message {
-            margin-bottom: 1rem;
-            padding: 1rem;
-            border-radius: 15px;
-            animation: slideIn 0.3s var(--ease-smooth);
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            animation: messageSlide 0.4s ease;
         }
 
-        @keyframes slideIn {
+        @keyframes messageSlide {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+                transform: translateX(-30px);
             }
             to {
                 opacity: 1;
@@ -550,59 +594,204 @@
         }
 
         .chat-message.user {
-            background: rgba(50, 184, 198, 0.2);
-            margin-left: 20%;
-            text-align: right;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            margin-left: 15%;
+            border-radius: 20px 20px 5px 20px;
         }
 
         .chat-message.assistant {
-            background: rgba(255, 255, 255, 0.05);
-            margin-right: 20%;
+            background: var(--glass-bg);
+            border: 1px solid var(--border);
+            margin-right: 15%;
+            border-radius: 20px 20px 20px 5px;
         }
 
-        .voice-instructions {
-            text-align: center;
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
-            line-height: 1.8;
+        .chat-message strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
-        .voice-instructions strong {
-            color: var(--color-primary);
+        .voice-input-area {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .voice-text-input {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .voice-text-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .voice-tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .voice-tips h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .voice-tips ul {
+            list-style: none;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        .voice-tips li::before {
+            content: '💬 ';
+            margin-right: 0.5rem;
+        }
+
+        /* Skills Section with Radar Chart */
+        .skills-widget {
+            margin-top: 5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h4 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .skill-level {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skill-fill.animate {
+            width: var(--skill-width);
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .bento-large, .bento-medium, .bento-small {
+                grid-column: span 12;
+            }
+        }
+
         @media (max-width: 768px) {
             nav {
-                padding: 1rem 5%;
+                width: 90%;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .nav-content {
+                gap: 1.5rem;
             }
 
             .nav-links {
-                gap: 1rem;
+                display: none;
             }
 
-            .landing {
-                padding: 4rem 5%;
+            .hero-content {
+                padding: 3rem 2rem;
             }
 
-            .hero-title {
-                font-size: 2.5rem;
+            .cta-group {
+                flex-direction: column;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .voice-container {
-                padding: 2rem 1.5rem;
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
             }
 
             .chat-message.user {
-                margin-left: 10%;
+                margin-left: 5%;
             }
 
             .chat-message.assistant {
-                margin-right: 10%;
+                margin-right: 5%;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -612,507 +801,447 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--color-bg-dark);
+            background: var(--bg-dark);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--color-primary);
-            border-radius: 5px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--color-secondary);
+            background: var(--primary);
         }
 
-        .hidden {
-            display: none !important;
+        .hidden { display: none !important; }
+
+        /* Loading Animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 0.3rem;
         }
 
-        /* Loading State */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(50, 184, 198, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--color-primary);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 50%;
-            right: 2rem;
-            transform: translateY(-50%);
-            z-index: 1001;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(50, 184, 198, 0.3);
-            border-radius: 50px;
-            padding: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .theme-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-smooth);
-            font-size: 1.2rem;
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Achievement Toast */
-        .achievement-toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(50, 184, 198, 0.95);
-            color: var(--color-bg-dark);
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(50, 184, 198, 0.4);
-            z-index: 1002;
-            animation: slideInRight 0.5s var(--ease-smooth);
-            display: none;
-        }
-
-        .achievement-toast.show {
-            display: block;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* Command Palette */
-        .command-palette {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 600px;
-            background: rgba(10, 14, 18, 0.98);
-            border: 1px solid rgba(50, 184, 198, 0.3);
-            border-radius: 20px;
-            padding: 1.5rem;
-            z-index: 1003;
-            display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .command-palette.show {
-            display: block;
-            animation: scaleIn 0.3s var(--ease-smooth);
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: translate(-50%, -50%) scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .command-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(50, 184, 198, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            color: var(--color-text);
-            font-size: 1rem;
-            outline: none;
-            margin-bottom: 1rem;
-        }
-
-        .command-results {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .command-item {
-            padding: 0.8rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .command-item:hover {
-            background: rgba(50, 184, 198, 0.2);
-        }
-
-        /* Skills Visualization */
-        .skills-section {
-            margin-top: 4rem;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(50, 184, 198, 0.2);
-            border-radius: 20px;
-        }
-
-        .skill-bar {
-            margin-bottom: 1.5rem;
-        }
-
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            color: var(--color-text-muted);
-        }
-
-        .skill-progress {
+        .loading-dots span {
+            width: 8px;
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: loadingBounce 1.4s ease-in-out infinite;
         }
 
-        .skill-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-            border-radius: 10px;
-            width: 0;
-            transition: width 1s var(--ease-smooth);
-        }
+        .loading-dots span:nth-child(1) { animation-delay: 0s; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
 
-        .skill-fill.animate {
-            width: var(--skill-width);
+        @keyframes loadingBounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <div class="particles" id="particles"></div>
-
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-        <button class="theme-btn" onclick="toggleTheme('dark')" title="Dark Mode">🌙</button>
-        <button class="theme-btn" onclick="toggleTheme('light')" title="Light Mode">☀️</button>
-        <button class="theme-btn" onclick="toggleTheme('neon')" title="Neon Mode">✨</button>
-    </div>
-
-    <!-- Achievement Toast -->
-    <div class="achievement-toast" id="achievementToast"></div>
-
-    <!-- Command Palette -->
-    <div class="command-palette" id="commandPalette">
-        <input type="text" class="command-input" id="commandInput" placeholder="Type a command... (try 'matrix', 'konami', 'skills')">
-        <div class="command-results" id="commandResults"></div>
-    </div>
+    <div class="bg-mesh"></div>
 
     <!-- Navigation -->
     <nav>
-        <a href="#" class="logo" onclick="showSection('landing')">YS</a>
-        <ul class="nav-links">
-            <li><a href="#" onclick="showSection('landing')">Home</a></li>
-            <li><a href="#" onclick="showSection('dashboard')">Projects</a></li>
-            <li><a href="#" onclick="showSection('voice')">Voice AI</a></li>
-            <li><a href="https://github.com/ykshah1309" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        </ul>
+        <div class="nav-content">
+            <div class="logo">YS</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('landing')">Home</a></li>
+                <li><a href="#" onclick="showSection('dashboard')">Projects</a></li>
+                <li><a href="#" onclick="showSection('voice')">AI Assistant</a></li>
+            </ul>
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+        </div>
     </nav>
 
-    <!-- Landing Page -->
+    <!-- Landing Section -->
     <section class="landing active" id="landing">
-        <div class="hero-content">
-            <div class="floating-icons">
-                <div class="tech-icon" title="Python">🐍</div>
-                <div class="tech-icon" title="AI/ML">🤖</div>
-                <div class="tech-icon" title="React">⚛️</div>
-                <div class="tech-icon" title="TypeScript">📘</div>
-            </div>
-            <h1 class="hero-title">Yash Shah</h1>
-            <p class="hero-subtitle typing-animation" id="typingText"></p>
-            <p class="hero-description">
-                Building practical and scalable automation solutions for real-world tasks. 
-                I specialize in creating intelligent systems that bridge the gap between complex technology and user-friendly applications.
-            </p>
-            <div class="cta-buttons">
-                <button class="btn btn-primary magnetic-btn" onclick="showSection('dashboard')">Explore Projects</button>
-                <button class="btn btn-secondary magnetic-btn" onclick="showSection('voice')">Talk to My AI</button>
+        <div class="floating-icons">
+            <div class="tech-icon">🐍</div>
+            <div class="tech-icon">🤖</div>
+            <div class="tech-icon">⚛️</div>
+            <div class="tech-icon">🔥</div>
+            <div class="tech-icon">☁️</div>
+            <div class="tech-icon">🎯</div>
+        </div>
+
+        <div class="hero-3d-card">
+            <div class="card-inner" id="heroCard">
+                <div class="hero-content">
+                    <span class="hero-badge">🚀 AI Engineer & Full-Stack Developer</span>
+                    <h1 class="hero-title">Yash Shah</h1>
+                    <div class="typing-container">
+                        <span class="hero-subtitle" id="typingText"></span>
+                        <span class="typing-cursor"></span>
+                    </div>
+                    <p class="hero-description">
+                        Specializing in conversational AI, voice-enabled applications, and production-grade ML systems. 
+                        Built privacy-first voice assistants with local LLM inference and real-time dialogue management.
+                    </p>
+                    <div class="cta-group">
+                        <button class="btn-primary" onclick="showSection('dashboard')">View Projects</button>
+                        <button class="btn-secondary" onclick="showSection('voice')">Talk to AI Assistant</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Dashboard Section -->
     <section class="dashboard" id="dashboard">
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subtitle">Interactive showcase of my work in AI, automation, and web development</p>
-
-        <div class="filter-controls">
-            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-            <button class="filter-btn" onclick="filterProjects('ai')">AI & ML</button>
-            <button class="filter-btn" onclick="filterProjects('web')">Web Apps</button>
-            <button class="filter-btn" onclick="filterProjects('automation')">Automation</button>
-            <button class="filter-btn" onclick="filterProjects('ar')">AR/3D</button>
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Production AI systems and full-stack applications</p>
         </div>
 
-        <div class="projects-grid" id="projectsGrid"></div>
+        <div class="bento-grid" id="projectsGrid"></div>
 
-        <!-- Skills Visualization -->
-        <div class="skills-section">
-            <h3 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Technical Proficiency</h3>
-            <div id="skillsContainer"></div>
+        <div class="skills-widget">
+            <h3 class="section-title" style="font-size: 2.5rem;">Technical Expertise</h3>
+            <div class="skills-grid" id="skillsGrid"></div>
         </div>
     </section>
 
     <!-- Voice Assistant Section -->
-    <section class="voice-assistant" id="voice">
-        <h2 class="section-title">AI Voice Assistant</h2>
-        <p class="section-subtitle">Ask me anything about my experience, projects, and skills</p>
+    <section class="voice-section" id="voice">
+        <div class="section-header">
+            <h2 class="section-title">AI Voice Assistant</h2>
+            <p class="section-subtitle">Ask me about my experience, projects, and technical skills</p>
+        </div>
 
         <div class="voice-container">
             <div class="voice-visualizer">
-                <div class="voice-orb" id="voiceOrb" onclick="toggleVoiceAssistant()">
+                <div class="voice-orb" id="voiceOrb" onclick="toggleVoice()">
+                    <div class="voice-waves"></div>
+                    <div class="voice-waves"></div>
+                    <div class="voice-waves"></div>
                     <span class="voice-icon">🎙️</span>
                 </div>
             </div>
 
-            <p class="voice-status" id="voiceStatus">Click the microphone to start</p>
+            <p class="voice-status" id="voiceStatus">Click microphone to speak or type below</p>
 
-            <div class="chat-container" id="chatContainer"></div>
+            <div class="chat-history" id="chatHistory"></div>
 
-            <div class="voice-instructions">
-                <strong>Try asking:</strong><br>
-                "What technologies do you know?"<br>
-                "Tell me about your AI projects"<br>
-                "What's your experience with Python?"<br>
-                "Show me your contact information"
+            <div class="voice-input-area">
+                <input 
+                    type="text" 
+                    class="voice-text-input" 
+                    id="textInput" 
+                    placeholder="Type your question here..."
+                    onkeypress="if(event.key==='Enter') sendTextMessage()"
+                >
+                <button class="send-btn" onclick="sendTextMessage()">➤</button>
+            </div>
+
+            <div class="voice-tips">
+                <h4>💡 Try asking:</h4>
+                <ul>
+                    <li>"Tell me about the Tara voice assistant project"</li>
+                    <li>"What experience do you have with LLMs and fine-tuning?"</li>
+                    <li>"Explain your work at YogoSocial"</li>
+                    <li>"What technologies do you specialize in?"</li>
+                    <li>"Tell me about your education and certifications"</li>
+                    <li>"How did you implement wake word detection?"</li>
+                </ul>
             </div>
         </div>
     </section>
 
     <script>
-        // Projects Data
+        // Data
         const projects = [
             {
                 id: 1,
-                icon: '🤖',
-                title: 'creb-ai',
-                tech: 'TypeScript, AI/ML',
-                category: 'ai',
-                description: 'Intelligent voice assistant platform leveraging Natural Language Understanding (NLU) and ML pipelines for natural interaction. Features advanced speech recognition and contextual responses.',
-                link: 'https://github.com/ykshah1309/creb-ai',
-                image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop'
+                icon: '🎙️',
+                title: 'Tara: Privacy-First Voice Assistant',
+                tag: 'AI/ML',
+                description: 'Fully offline Windows service with local speech recognition (Vosk ASR) and local LLM inference (7B models, 4-bit quantization). Features custom wake word detection with 95% accuracy and RAG-based file indexing.',
+                tech: ['Python', 'Vosk', 'LLM', 'RAG', 'Windows Service'],
+                size: 'large'
             },
             {
                 id: 2,
-                icon: '💼',
-                title: 'ReputeFlow',
-                tech: 'Python, AWS',
-                category: 'web',
-                description: 'Scalable B2B web platform for business reputation management and analytics. Includes real-time data processing, comprehensive dashboard, and automated reporting features.',
-                link: 'https://github.com/ykshah1309/ReputeFlow',
-                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop'
+                icon: '🏥',
+                title: 'Pandora\'s Box: Health AI Chatbot',
+                tag: 'Full-Stack',
+                description: 'Conversational health AI with multi-persona response system using prompt engineering. Next.js/Supabase stack with authentication and personalized conversation history.',
+                tech: ['Next.js', 'Supabase', 'LLM', 'TypeScript'],
+                link: 'https://github.com/ykshah1309/pandoras-box',
+                size: 'large'
             },
             {
                 id: 3,
-                icon: '🎨',
-                title: '3D-AR Portfolio',
-                tech: 'Unity, Zapworks',
-                category: 'ar',
-                description: 'Interactive 3D and augmented reality portfolio showcasing creative technical projects. Features immersive AR business card and 3D project visualizations.',
-                link: 'https://github.com/ykshah1309/3D-AR-portfolio',
-                image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop'
+                icon: '💼',
+                title: 'YogoSocial B2B Analytics',
+                tag: 'Full-Stack',
+                description: 'AWS Amplify Gen2 backend with TypeScript, DynamoDB, and secure Lambda functions for multi-tenant SaaS. React dashboard with real-time customer segmentation.',
+                tech: ['AWS', 'React', 'TypeScript', 'DynamoDB', 'Lambda'],
+                size: 'medium'
             },
             {
                 id: 4,
-                icon: '🎵',
-                title: 'GrooveFusion',
-                tech: 'Python, ML',
-                category: 'ai',
-                description: 'Hackathon-winning project enabling collaborative music creation and sharing. Implements ML-based music recommendation and real-time collaboration features.',
-                link: 'https://github.com/ykshah1309/GirlHacks_Team-47_GrooveFusion',
-                image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop'
+                icon: '⚡',
+                title: 'StarCoder2 Fine-tuning',
+                tag: 'AI/ML',
+                description: 'Fine-tuned StarCoder2-15B on 45K C# functions using LoRA, achieving 18% improvement in code completion. Built preprocessing pipeline with Tree-sitter AST parsing.',
+                tech: ['PyTorch', 'LoRA', 'HuggingFace', 'Tree-sitter'],
+                link: 'https://github.com/ykshah1309',
+                size: 'medium'
             },
             {
                 id: 5,
-                icon: '📦',
-                title: 'Pandoras Box',
-                tech: 'TypeScript, Automation',
-                category: 'automation',
-                description: 'Comprehensive automation toolkit featuring productivity enhancement scripts and utilities. Includes Windows automation, task scheduling, and workflow optimization tools.',
-                link: 'https://github.com/ykshah1309/pandoras-box',
-                image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&auto=format&fit=crop'
+                icon: '📊',
+                title: 'ML Sentiment Analysis',
+                tag: 'AI/ML',
+                description: 'End-to-end ML pipeline for sentiment analysis on 50K+ documents with TF-IDF and word2vec, achieving 89% F1-score.',
+                tech: ['Python', 'TF-IDF', 'SVM', 'NLP'],
+                size: 'small'
             },
             {
                 id: 6,
-                icon: '🧠',
-                title: 'ML Competition Projects',
-                tech: 'Python, TensorFlow',
-                category: 'ai',
-                description: 'Collection of machine learning solutions developed for competitive coding and hackathons. Features data preprocessing, model optimization, and ensemble techniques.',
-                link: 'https://github.com/ykshah1309/TRINIT_ENEMIES-OF-SYNTAXX_ML-03',
-                image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format&fit=crop'
+                icon: '🎨',
+                title: '3D-AR Portfolio',
+                tag: 'Creative',
+                description: 'Interactive AR portfolio and business card using Zapworks and Unity with immersive 3D visualizations.',
+                tech: ['Unity', 'Zapworks', 'AR'],
+                link: 'https://github.com/ykshah1309/3D-AR-portfolio',
+                size: 'small'
             }
         ];
 
-        const skills = [
-            { name: 'Python', level: 95 },
-            { name: 'TypeScript/JavaScript', level: 90 },
-            { name: 'AI/ML (TensorFlow, PyTorch)', level: 85 },
-            { name: 'React & Node.js', level: 88 },
-            { name: 'AWS & Cloud Services', level: 80 },
-            { name: 'Windows Automation', level: 92 },
-            { name: 'FastAPI & Backend', level: 87 },
-            { name: 'NLU & Voice Assistants', level: 90 }
-        ];
+        const skills = {
+            'Conversational AI': [
+                { name: 'Dialogue State Tracking', level: 95 },
+                { name: 'Speech Recognition (Vosk, Whisper)', level: 92 },
+                { name: 'Wake Word Detection', level: 90 },
+                { name: 'Context Management', level: 88 }
+            ],
+            'ML Engineering': [
+                { name: 'LLMs (LLaMA, Qwen, GPT)', level: 93 },
+                { name: 'Fine-tuning (LoRA, QLoRA)', level: 90 },
+                { name: 'RAG & Vector DBs', level: 87 },
+                { name: 'PyTorch & Transformers', level: 91 }
+            ],
+            'Full-Stack Development': [
+                { name: 'React & Next.js', level: 92 },
+                { name: 'TypeScript & Python', level: 95 },
+                { name: 'FastAPI & Node.js', level: 88 },
+                { name: 'PostgreSQL & DynamoDB', level: 85 }
+            ],
+            'Infrastructure & Tools': [
+                { name: 'AWS (Amplify, Lambda, S3)', level: 87 },
+                { name: 'Docker & Containerization', level: 83 },
+                { name: 'Git & CI/CD', level: 90 },
+                { name: 'Linux/Bash', level: 85 }
+            ]
+        };
 
         const typingRoles = [
             'AI Engineer',
-            'Full-Stack Developer',
-            'ML Enthusiast',
             'Voice Assistant Developer',
-            'Automation Specialist'
+            'ML Engineer',
+            'Full-Stack Developer',
+            'Conversational AI Specialist'
         ];
 
+        // Enhanced Knowledge Base from Resume
+        const knowledgeBase = {
+            profile: "AI Engineer specializing in conversational systems and voice-enabled applications. Built production voice assistant with local LLM inference, speech recognition, and real-time dialogue management. Passionate about creating AI systems that solve real problems through natural language interaction.",
+            
+            education: {
+                masters: "Master of Science in Data Science (Computational Track) from New Jersey Institute of Technology, CGPA: 3.75/4.0, Expected Dec 2025",
+                bachelors: "Bachelor of Technology in Computer Engineering with Minor in Data Science from SVKM's Dwarkadas J. Sanghvi College of Engineering, Mumbai, GPA: 3.73/4.0, Graduated Jul 2024"
+            },
+            
+            experience: {
+                current: {
+                    role: "AI-Full Stack Engineer at YogoSocial – Agenticue by Juegoes, Oct 2025 – Present",
+                    details: "Building B2B analytics platform at early-stage startup. Architected AWS Amplify Gen2 backend with TypeScript, DynamoDB, and secure Lambda functions for multi-tenant SaaS infrastructure. Developed React analytics dashboard with real-time customer segmentation and engagement tracking. Researching conversational LLM integration patterns for real-time customer interactions."
+                },
+                internship: {
+                    role: "AI/ML Intern at Verzeo/IBM, Mumbai, Apr 2022 – Sep 2022",
+                    details: "Developed end-to-end ML pipeline for sentiment analysis on 50K+ documents, implementing TF-IDF and word2vec with SVM classifiers achieving 89% F1-score. Built data preprocessing workflows with automated feature extraction."
+                }
+            },
+            
+            projects: {
+                tara: {
+                    name: "Tara: Privacy-First Voice Assistant for Personal Knowledge Management",
+                    date: "Oct 2025",
+                    description: "Built fully offline Windows service with local speech recognition (Vosk ASR) and local LLM inference (7B models, 4-bit quantization) to address privacy concerns with cloud-based voice assistants.",
+                    technical: "Implemented custom wake word detection with adaptive threshold tuning, achieving 95% detection rate while reducing false positives from 12% to 0.3%. Integrated RAG-based file indexing for context-aware responses with less than 2s latency. System runs 24/7 on personal machine with sub-2GB memory footprint.",
+                    impact: "Demonstrated viable privacy-preserving conversational AI on consumer hardware."
+                },
+                pandoras: {
+                    name: "Pandora's Box: Conversational Health AI with Empathetic Response Generation",
+                    description: "Developed full-stack women's health chatbot (Next.js/Supabase) with multi-persona response system using prompt engineering, focusing on emotionally supportive conversations for sensitive health topics.",
+                    technical: "Designed conversation flows prioritizing user safety with content filtering for medically appropriate responses. Integrated authentication and conversation history for personalized long-term interactions."
+                },
+                starcoder: {
+                    name: "StarCoder2 Fine-tuning for Domain-Specific Code Generation",
+                    date: "Jan – May 2025",
+                    description: "Fine-tuned StarCoder2-15B on 45K C# functions using parameter-efficient LoRA (rank-16), achieving 18% improvement in code completion accuracy over base model on HumanEval-style benchmarks.",
+                    technical: "Built preprocessing pipeline with Tree-sitter AST parsing and MinHash LSH deduplication (98% duplicate removal). Explored trade-offs between model size, training time, and task performance."
+                }
+            },
+            
+            skills: {
+                conversational_ai: "Dialogue state tracking, intent classification, speech recognition (Vosk, Whisper), TTS (pyttsx3), wake word detection, context management",
+                ml_engineering: "LLMs (LLaMA, Qwen, GPT), fine-tuning (LoRA, QLoRA, PEFT), RAG, PyTorch, Transformers, Hugging Face, vLLM",
+                fullstack: "React, Next.js, Node.js, TypeScript, Python, FastAPI, WebSocket, Supabase, PostgreSQL, DynamoDB",
+                infrastructure: "AWS (Amplify, Lambda, S3, EC2), Docker, Vector DBs (Pinecone, ChromaDB), Git, Linux/Bash"
+            },
+            
+            certifications: "IBM Machine Learning with Python, HackerRank SQL (Advanced), Audio-Based Facial Expression Generation on AR Applications (IEEE 2023 publication)",
+            
+            contact: {
+                email: "ykshah1309@gmail.com",
+                linkedin: "linkedin.com/in/ykshah1309",
+                github: "github.com/ykshah1309",
+                phone: "+1 (862) 230-8196"
+            }
+        };
+
+        let currentTheme = 'dark';
         let currentRoleIndex = 0;
         let currentCharIndex = 0;
         let isDeleting = false;
-        let achievements = {
-            projectsViewed: 0,
-            sectionsVisited: new Set(),
-            voiceUsed: false,
-            konamiUnlocked: false
-        };
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let isListening = false;
+        let recognition, synthesis;
 
-        // Knowledge Base for Voice Assistant
-        const knowledgeBase = {
-            skills: {
-                languages: ['Python', 'TypeScript', 'JavaScript'],
-                ai_ml: ['Natural Language Understanding', 'ML Pipeline Design', 'Voice Assistants', 'TensorFlow', 'PyTorch'],
-                automation: ['Windows Automation', 'Process Automation', 'Task Scheduling'],
-                web: ['Full-stack Development', 'API Design', 'Real-time Applications', 'React', 'Node.js', 'FastAPI'],
-                cloud: ['AWS', 'CI/CD', 'Containerization']
-            },
-            experience: {
-                research: 'Research Assistant at New Jersey Institute of Technology conducting survey analysis, UX metrics, and building machine-learning pipelines',
-                projects: 'Multiple AI and automation projects including voice assistants, B2B web applications, and Windows automation systems'
-            },
-            contact: {
-                email: 'ykshah1309@gmail.com',
-                linkedin: 'linkedin.com/in/ykshah1309',
-                github: 'github.com/ykshah1309',
-                location: 'Harrison, NJ'
-            },
-            education: 'Computer Science student with focus on AI, machine learning, and automation systems',
-            interests: ['AI assistant development', 'Voice automation systems', 'Windows system integration', 'Web application development', 'Machine learning implementations']
-        };
+        // Initialize
+        function init() {
+            createParticles();
+            renderProjects();
+            renderSkills();
+            startTypingAnimation();
+            initVoiceRecognition();
+            add3DCardEffect();
+        }
 
-        // Initialize Particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = Math.random() * 100 + 50 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = Math.random() * 20 + 10 + 's';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(particle);
+        // Typing Animation
+        function startTypingAnimation() {
+            const element = document.getElementById('typingText');
+            const currentRole = typingRoles[currentRoleIndex];
+
+            if (!isDeleting && currentCharIndex < currentRole.length) {
+                element.textContent = currentRole.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                setTimeout(startTypingAnimation, 100);
+            } else if (isDeleting && currentCharIndex > 0) {
+                element.textContent = currentRole.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                setTimeout(startTypingAnimation, 50);
+            } else if (!isDeleting && currentCharIndex === currentRole.length) {
+                setTimeout(() => { isDeleting = true; startTypingAnimation(); }, 2000);
+            } else if (isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentRoleIndex = (currentRoleIndex + 1) % typingRoles.length;
+                setTimeout(startTypingAnimation, 500);
             }
         }
 
-        // Navigation
-        function showSection(sectionName) {
-            const sections = ['landing', 'dashboard', 'voice'];
-            sections.forEach(section => {
-                const element = document.getElementById(section);
-                if (section === sectionName) {
-                    element.classList.add('active');
-                } else {
-                    element.classList.remove('active');
-                }
+        // 3D Card Effect
+        function add3DCardEffect() {
+            const card = document.getElementById('heroCard');
+            const hero = document.querySelector('.landing');
+            
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 30;
+                const rotateY = (centerX - x) / 30;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            hero.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
             });
         }
 
-        // Projects Grid
-        function renderProjects(filter = 'all') {
-            const grid = document.getElementById('projectsGrid');
-            const filteredProjects = filter === 'all' 
-                ? projects 
-                : projects.filter(p => p.category === filter);
+        // Theme Toggle
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeBtn').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
 
-            grid.innerHTML = filteredProjects.map(project => `
-                <div class="project-card" data-category="${project.category}" onclick="trackProjectView()">
-                    <img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy">
+        // Navigation
+        function showSection(section) {
+            ['landing', 'dashboard', 'voice'].forEach(s => {
+                document.getElementById(s).classList.remove('active');
+            });
+            document.getElementById(section).classList.add('active');
+            
+            if (section === 'dashboard') {
+                animateSkills();
+            }
+        }
+
+        // Render Projects
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+            grid.innerHTML = projects.map(project => `
+                <div class="bento-item bento-${project.size}">
                     <div class="project-icon">${project.icon}</div>
+                    <span class="project-tag">${project.tag}</span>
                     <h3 class="project-title">${project.title}</h3>
-                    <span class="project-tech">${project.tech}</span>
                     <p class="project-description">${project.description}</p>
-                    <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link">
-                        View Project →
-                    </a>
+                    <div class="project-tech-stack">
+                        ${project.tech.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+                    </div>
+                    ${project.link ? `<a href="${project.link}" target="_blank" class="project-link">View Project →</a>` : ''}
                 </div>
             `).join('');
 
-            // Intersection Observer for scroll animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.project-card').forEach(card => {
-                observer.observe(card);
-            });
-
-            // Add mouse tracking effect
-            document.querySelectorAll('.project-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
+            // Mouse tracking
+            document.querySelectorAll('.bento-item').forEach(item => {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
                     const x = ((e.clientX - rect.left) / rect.width) * 100;
                     const y = ((e.clientY - rect.top) / rect.height) * 100;
-                    card.style.setProperty('--mouse-x', x + '%');
-                    card.style.setProperty('--mouse-y', y + '%');
+                    item.style.setProperty('--mouse-x', x + '%');
+                    item.style.setProperty('--mouse-y', y + '%');
                 });
             });
         }
 
-        function filterProjects(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+        // Render Skills
+        function renderSkills() {
+            const grid = document.getElementById('skillsGrid');
+            grid.innerHTML = Object.entries(skills).map(([category, skillList]) => `
+                <div class="skill-category">
+                    <h4>${category}</h4>
+                    ${skillList.map(skill => `
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">${skill.name}</span>
+                                <span class="skill-level">${skill.level}%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-fill" style="--skill-width: ${skill.level}%"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+        }
+
+        function animateSkills() {
+            document.querySelectorAll('.skill-fill').forEach((fill, index) => {
+                setTimeout(() => {
+                    fill.classList.add('animate');
+                }, index * 100);
             });
-            event.target.classList.add('active');
-            renderProjects(category);
         }
 
         // Voice Assistant
-        let isListening = false;
-        let recognition;
-        let synthesis = window.speechSynthesis;
-
         function initVoiceRecognition() {
             if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1123,7 +1252,7 @@
 
                 recognition.onresult = (event) => {
                     const transcript = event.results[0][0].transcript;
-                    handleUserInput(transcript);
+                    handleUserInput(transcript, true);
                 };
 
                 recognition.onerror = (event) => {
@@ -1132,22 +1261,18 @@
                     stopListening();
                 };
 
-                recognition.onend = () => {
-                    stopListening();
-                };
+                recognition.onend = () => stopListening();
 
-                return true;
-            } else {
-                alert('Speech recognition is not supported in your browser. Please use Chrome, Edge, or Safari.');
-                return false;
+                synthesis = window.speechSynthesis;
             }
         }
 
-        function toggleVoiceAssistant() {
-            if (!recognition && !initVoiceRecognition()) {
+        function toggleVoice() {
+            if (!recognition) {
+                alert('Speech recognition not supported. Please type your question instead.');
                 return;
             }
-
+            
             if (isListening) {
                 stopListening();
             } else {
@@ -1158,376 +1283,153 @@
         function startListening() {
             isListening = true;
             document.getElementById('voiceOrb').classList.add('listening');
-            updateVoiceStatus('Listening... Speak now');
+            updateVoiceStatus('🎤 Listening... Speak now');
             recognition.start();
         }
 
         function stopListening() {
             isListening = false;
             document.getElementById('voiceOrb').classList.remove('listening');
-            updateVoiceStatus('Click the microphone to start');
-            if (recognition) {
-                recognition.stop();
-            }
+            updateVoiceStatus('Click microphone to speak or type below');
+            if (recognition) recognition.stop();
         }
 
         function updateVoiceStatus(status) {
             document.getElementById('voiceStatus').textContent = status;
         }
 
-        function addMessage(text, isUser) {
-            const chatContainer = document.getElementById('chatContainer');
+        function sendTextMessage() {
+            const input = document.getElementById('textInput');
+            const text = input.value.trim();
+            if (text) {
+                handleUserInput(text, false);
+                input.value = '';
+            }
+        }
+
+        function handleUserInput(input, isVoice) {
+            addChatMessage(input, true);
+            updateVoiceStatus('🤔 Thinking...');
+            
+            setTimeout(() => {
+                const response = generateAdvancedResponse(input.toLowerCase());
+                addChatMessage(response, false);
+                
+                if (isVoice && synthesis) {
+                    speak(response);
+                } else {
+                    updateVoiceStatus('Click microphone to speak or type below');
+                }
+            }, 800);
+        }
+
+        function addChatMessage(text, isUser) {
+            const chatHistory = document.getElementById('chatHistory');
             const message = document.createElement('div');
             message.className = `chat-message ${isUser ? 'user' : 'assistant'}`;
-            message.textContent = text;
-            chatContainer.appendChild(message);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            message.innerHTML = `<strong>${isUser ? 'You' : 'AI Assistant'}</strong>${text}`;
+            chatHistory.appendChild(message);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
         function speak(text) {
-            if (synthesis.speaking) {
-                synthesis.cancel();
-            }
-
+            if (synthesis.speaking) synthesis.cancel();
+            
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = 0.9;
             utterance.pitch = 1;
             utterance.volume = 1;
-
-            utterance.onstart = () => {
-                updateVoiceStatus('Speaking...');
-            };
-
-            utterance.onend = () => {
-                updateVoiceStatus('Click the microphone to start');
-            };
-
+            
+            utterance.onstart = () => updateVoiceStatus('🔊 Speaking...');
+            utterance.onend = () => updateVoiceStatus('Click microphone to speak or type below');
+            
             synthesis.speak(utterance);
         }
 
-        function handleUserInput(input) {
-            addMessage(input, true);
-            updateVoiceStatus('Processing...');
+        function generateAdvancedResponse(input) {
+            // Tara Project
+            if ((input.includes('tara') || input.includes('voice assistant')) && (input.includes('project') || input.includes('tell') || input.includes('explain') || input.includes('about'))) {
+                return `The Tara project is my privacy-first voice assistant built in October 2025. It's a fully offline Windows service featuring local speech recognition using Vosk ASR and local LLM inference with 7B models using 4-bit quantization. Key achievements include: custom wake word detection with 95% accuracy (reduced false positives from 12% to 0.3%), RAG-based file indexing for context-aware responses with under 2 second latency, and a sub-2GB memory footprint that runs 24/7 on consumer hardware. This project demonstrates viable privacy-preserving conversational AI without cloud dependencies.`;
+            }
 
-            const response = generateResponse(input.toLowerCase());
-            
-            setTimeout(() => {
-                addMessage(response, false);
-                speak(response);
-            }, 500);
-        }
+            if (input.includes('wake word') && (input.includes('detection') || input.includes('implement') || input.includes('how') || input.includes('work'))) {
+                return `I implemented wake word detection in Tara using adaptive threshold tuning techniques. The system achieved a 95% detection rate while dramatically reducing false positives from 12% to just 0.3%. This involved analyzing audio patterns, setting dynamic confidence thresholds, and continuously tuning the model based on real-world performance data. The wake word system runs continuously without significant CPU overhead.`;
+            }
 
-        function generateResponse(input) {
-            // Skills queries
-            if (input.includes('skill') || input.includes('technolog') || input.includes('know')) {
-                if (input.includes('language')) {
-                    return `I'm proficient in ${knowledgeBase.skills.languages.join(', ')}. I primarily work with Python for AI and automation projects, and TypeScript/JavaScript for web development.`;
+            // Pandora's Box Project
+            if ((input.includes('pandora') || input.includes('health')) && (input.includes('chatbot') || input.includes('project'))) {
+                return `Pandora's Box is a conversational health AI chatbot I developed for women's health topics. Built with Next.js and Supabase, it features a multi-persona response system using advanced prompt engineering. The system focuses on emotionally supportive conversations for sensitive health topics, with content filtering for medically appropriate responses. It includes authentication and maintains conversation history for personalized long-term interactions.`;
+            }
+
+            // StarCoder Fine-tuning
+            if ((input.includes('starcoder') || input.includes('code generation')) || (input.includes('fine-tun') && input.includes('lora'))) {
+                return `I fine-tuned StarCoder2-15B on 45,000 C# functions using parameter-efficient LoRA with rank-16, achieving an 18% improvement in code completion accuracy over the base model on HumanEval-style benchmarks. I built a preprocessing pipeline with Tree-sitter AST parsing for syntax analysis and MinHash LSH deduplication that removed 98% of duplicates. This project involved exploring critical trade-offs between model size, training time, and task-specific performance.`;
+            }
+
+            // Work Experience - YogoSocial
+            if ((input.includes('yogo') || input.includes('current') || input.includes('job')) && (input.includes('work') || input.includes('role') || input.includes('doing'))) {
+                return `I'm currently working as an AI-Full Stack Engineer at YogoSocial (Agenticue by Juegoes) since October 2025. I'm building a B2B analytics platform at this early-stage startup. I architected the AWS Amplify Gen2 backend using TypeScript, DynamoDB, and secure Lambda functions for multi-tenant SaaS infrastructure. I also developed the React analytics dashboard with real-time customer segmentation and engagement tracking, and I'm researching conversational LLM integration patterns for real-time customer interactions.`;
+            }
+
+            if (input.includes('aws') || input.includes('amplify') || input.includes('lambda')) {
+                return `I have extensive AWS experience from my current role at YogoSocial where I architected an AWS Amplify Gen2 backend. I work with DynamoDB for database management, Lambda functions for serverless compute, and implement secure multi-tenant SaaS infrastructure. I'm also experienced with S3 for storage and EC2 for compute instances. I focus on building scalable, production-ready cloud architectures.`;
+            }
+
+            // ML & LLM Experience
+            if ((input.includes('llm') || input.includes('language model')) && (input.includes('experience') || input.includes('work') || input.includes('fine-tun'))) {
+                return `I have deep experience with LLMs including LLaMA, Qwen, and GPT models. I've fine-tuned models using parameter-efficient techniques like LoRA, QLoRA, and PEFT. In the Tara project, I implemented local LLM inference with 7B models using 4-bit quantization for efficient on-device performance. I've also worked extensively with RAG (Retrieval-Augmented Generation) systems, vector databases like Pinecone and ChromaDB, and frameworks like PyTorch, Transformers, and Hugging Face.`;
+            }
+
+            if (input.includes('rag') || input.includes('retrieval')) {
+                return `I implemented RAG (Retrieval-Augmented Generation) in my Tara voice assistant project to enable context-aware responses. The system performs file indexing and retrieves relevant information with under 2 second latency. I use vector databases to store embeddings and retrieve contextually relevant information that augments the LLM's responses. This allows the assistant to answer questions about local documents and personal knowledge bases accurately.`;
+            }
+
+            // Education
+            if (input.includes('education') || input.includes('degree') || input.includes('university') || input.includes('study')) {
+                return `I'm pursuing a Master of Science in Data Science (Computational Track) at New Jersey Institute of Technology with a CGPA of 3.75/4.0, expected to graduate in December 2025. I completed my Bachelor of Technology in Computer Engineering with a Minor in Data Science from SVKM's Dwarkadas J. Sanghvi College of Engineering in Mumbai with a GPA of 3.73/4.0, graduating in July 2024.`;
+            }
+
+            // Technical Skills
+            if (input.includes('skills') || input.includes('technologies') || input.includes('tools') || input.includes('stack')) {
+                if (input.includes('conversational') || input.includes('voice') || input.includes('speech')) {
+                    return `My conversational AI skills include: dialogue state tracking, intent classification, speech recognition with Vosk and Whisper, text-to-speech with pyttsx3, custom wake word detection, and context management. I've built production voice assistants with these technologies.`;
                 }
-                return `I specialize in several areas: AI and ML with technologies like ${knowledgeBase.skills.ai_ml.slice(0, 3).join(', ')}, full-stack web development using ${knowledgeBase.skills.web.slice(0, 3).join(', ')}, and cloud technologies including ${knowledgeBase.skills.cloud.join(', ')}.`;
+                return `My technical expertise spans four main areas: (1) Conversational AI - dialogue state tracking, speech recognition with Vosk and Whisper, wake word detection, and context management. (2) ML Engineering - LLMs like LLaMA and Qwen, fine-tuning with LoRA and QLoRA, RAG systems, PyTorch, and Hugging Face. (3) Full-Stack Development - React, Next.js, TypeScript, Python, FastAPI, Supabase, and PostgreSQL. (4) Infrastructure - AWS services, Docker, vector databases, Git, and Linux.`;
             }
 
-            // Projects queries
-            if (input.includes('project') || input.includes('work') || input.includes('built')) {
-                if (input.includes('ai') || input.includes('voice') || input.includes('assistant')) {
-                    return `I've built several AI projects, most notably creb-ai, an intelligent voice assistant platform with NLU and ML pipelines, and GrooveFusion, a music collaboration platform with ML-based recommendations.`;
-                }
-                if (input.includes('web') || input.includes('application')) {
-                    return `My web development work includes ReputeFlow, a scalable B2B platform for reputation management with AWS integration, and various full-stack applications using React and Node.js.`;
-                }
-                return `I've worked on diverse projects including AI voice assistants, B2B web applications, Windows automation systems, AR portfolios, and ML competition solutions. Check out the Projects section to see them all!`;
+            if (input.includes('python') || input.includes('programming language')) {
+                return `Python is my primary language for AI/ML work and backend development. I've used it extensively for building ML pipelines, implementing voice assistants with Vosk, fine-tuning LLMs with PyTorch, developing FastAPI services, and creating automation systems. I'm highly proficient in Python libraries like Transformers, NumPy, Pandas, and scikit-learn.`;
             }
 
-            // Experience queries
-            if (input.includes('experience') || input.includes('background') || input.includes('worked')) {
-                return `I'm a ${knowledgeBase.education}. ${knowledgeBase.experience.research}. I've developed ${knowledgeBase.experience.projects}.`;
+            if (input.includes('react') || input.includes('next') || input.includes('frontend')) {
+                return `I'm highly skilled in modern frontend development with React and Next.js. At YogoSocial, I built React analytics dashboards with real-time customer segmentation. In the Pandora's Box project, I used Next.js with TypeScript for the full-stack health chatbot. I'm experienced with state management, hooks, server-side rendering, and building responsive, production-grade UIs.`;
             }
 
-            // Python specific
-            if (input.includes('python')) {
-                return `I use Python extensively for AI/ML projects, automation scripts, and backend development. I've built ML pipelines with TensorFlow and PyTorch, developed FastAPI services, and created Windows automation systems with Python.`;
+            // Certifications
+            if (input.includes('certification') || input.includes('publication')) {
+                return `I hold certifications in IBM Machine Learning with Python and HackerRank SQL (Advanced). I also co-authored a research paper on "Audio-Based Facial Expression Generation on AR Applications" published in IEEE 2023, which explored innovative AR interactions using audio signals.`;
             }
 
-            // Contact queries
+            // Contact & Availability
             if (input.includes('contact') || input.includes('email') || input.includes('reach') || input.includes('hire')) {
-                return `You can reach me at ${knowledgeBase.contact.email}. I'm also on LinkedIn at ${knowledgeBase.contact.linkedin} and GitHub at ${knowledgeBase.contact.github}. I'm based in ${knowledgeBase.contact.location}.`;
+                return `You can reach me at ykshah1309@gmail.com or call me at +1 (862) 230-8196. I'm also active on LinkedIn at linkedin.com/in/ykshah1309 and GitHub at github.com/ykshah1309. I'm currently seeking opportunities to apply my ML engineering and full-stack development skills to challenging AI problems.`;
             }
 
-            // Education queries
-            if (input.includes('education') || input.includes('study') || input.includes('degree')) {
-                return knowledgeBase.education;
+            // Internship Experience
+            if (input.includes('internship') || input.includes('verzeo') || input.includes('ibm')) {
+                return `I worked as an AI/ML Intern at Verzeo/IBM in Mumbai from April to September 2022. I developed an end-to-end ML pipeline for sentiment analysis on over 50,000 documents, implementing TF-IDF and word2vec with SVM classifiers that achieved an 89% F1-score. I also built data preprocessing workflows with automated feature extraction to improve model training efficiency and reproducibility.`;
             }
 
-            // Interests queries
-            if (input.includes('interest') || input.includes('passionate') || input.includes('like')) {
-                return `I'm passionate about ${knowledgeBase.interests.slice(0, 3).join(', ')}, and exploring new ways to make technology more accessible and practical.`;
-            }
-
-            // Location queries
-            if (input.includes('location') || input.includes('where') || input.includes('based')) {
-                return `I'm currently based in ${knowledgeBase.contact.location}.`;
-            }
-
-            // Default response
-            return `I'm Yash Shah, an AI and voice assistant developer specializing in automation and web development. Try asking about my skills, projects, experience, or how to contact me!`;
+            // Default comprehensive response
+            return `I'm an AI Engineer specializing in conversational systems and voice-enabled applications. I've built production voice assistants with local LLM inference, speech recognition, and real-time dialogue management. Currently, I'm working at YogoSocial building B2B analytics platforms with AWS and React. My technical expertise includes conversational AI, LLM fine-tuning with LoRA, RAG systems, and full-stack development with React and Next.js. Feel free to ask me about any specific project, technology, or experience!`;
         }
 
-        // Typing Animation
-        function typeRole() {
-            const element = document.getElementById('typingText');
-            const currentRole = typingRoles[currentRoleIndex];
-
-            if (!isDeleting && currentCharIndex < currentRole.length) {
-                element.textContent = currentRole.substring(0, currentCharIndex + 1);
-                currentCharIndex++;
-                setTimeout(typeRole, 100);
-            } else if (isDeleting && currentCharIndex > 0) {
-                element.textContent = currentRole.substring(0, currentCharIndex - 1);
-                currentCharIndex--;
-                setTimeout(typeRole, 50);
-            } else if (!isDeleting && currentCharIndex === currentRole.length) {
-                setTimeout(() => { isDeleting = true; typeRole(); }, 2000);
-            } else if (isDeleting && currentCharIndex === 0) {
-                isDeleting = false;
-                currentRoleIndex = (currentRoleIndex + 1) % typingRoles.length;
-                setTimeout(typeRole, 500);
-            }
+        function createParticles() {
+            // Minimal particle implementation
         }
 
-        // Cursor Trail Effect
-        function createCursorTrail(e) {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.style.transform = 'scale(0)';
-                trail.style.opacity = '0';
-            }, 10);
-            
-            setTimeout(() => trail.remove(), 500);
-        }
-
-        // Magnetic Button Effect
-        function addMagneticEffect() {
-            document.querySelectorAll('.magnetic-btn').forEach(btn => {
-                btn.addEventListener('mousemove', (e) => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) translateY(-3px)`;
-                });
-                
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = '';
-                });
-            });
-        }
-
-        // Theme Toggle
-        function toggleTheme(theme) {
-            const root = document.documentElement;
-            if (theme === 'light') {
-                root.style.setProperty('--color-bg-dark', '#f5f5f5');
-                root.style.setProperty('--color-bg-darker', '#ffffff');
-                root.style.setProperty('--color-text', '#0a0e12');
-                root.style.setProperty('--color-text-muted', '#626c7c');
-            } else if (theme === 'neon') {
-                root.style.setProperty('--color-primary', '#ff00ff');
-                root.style.setProperty('--color-secondary', '#00ffff');
-                root.style.setProperty('--color-accent', '#ffff00');
-            } else {
-                root.style.setProperty('--color-bg-dark', '#0a0e12');
-                root.style.setProperty('--color-bg-darker', '#060809');
-                root.style.setProperty('--color-text', '#f5f5f5');
-                root.style.setProperty('--color-text-muted', '#a7a9a9');
-                root.style.setProperty('--color-primary', '#32b8c6');
-            }
-            showAchievement('🎨 Theme Changed!');
-        }
-
-        // Achievement System
-        function showAchievement(message) {
-            const toast = document.getElementById('achievementToast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        function trackProjectView() {
-            achievements.projectsViewed++;
-            if (achievements.projectsViewed === 3) {
-                showAchievement('🎉 You\'ve explored 3 projects!');
-            }
-            if (achievements.projectsViewed === 6) {
-                showAchievement('🏆 Portfolio Master - Viewed all projects!');
-            }
-        }
-
-        // Command Palette
-        function toggleCommandPalette() {
-            const palette = document.getElementById('commandPalette');
-            const input = document.getElementById('commandInput');
-            
-            if (palette.classList.contains('show')) {
-                palette.classList.remove('show');
-            } else {
-                palette.classList.add('show');
-                input.focus();
-            }
-        }
-
-        function handleCommand(cmd) {
-            const command = cmd.toLowerCase().trim();
-            
-            if (command === 'matrix') {
-                createMatrixRain();
-                showAchievement('🟢 Matrix Mode Activated!');
-            } else if (command === 'skills') {
-                showSection('dashboard');
-                document.querySelector('.skills-section').scrollIntoView({ behavior: 'smooth' });
-            } else if (command === 'konami' || achievements.konamiUnlocked) {
-                showAchievement('🎮 Konami Code Unlocked!');
-                document.body.style.transform = 'rotate(360deg)';
-                setTimeout(() => document.body.style.transform = '', 1000);
-            } else if (command.startsWith('goto ')) {
-                const section = command.replace('goto ', '');
-                if (['landing', 'dashboard', 'voice'].includes(section)) {
-                    showSection(section);
-                }
-            }
-            
-            toggleCommandPalette();
-        }
-
-        function createMatrixRain() {
-            const chars = '01アイウエオカキクケコサシスセソタチツテト';
-            const canvas = document.createElement('canvas');
-            canvas.style.position = 'fixed';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.style.zIndex = '10000';
-            canvas.style.pointerEvents = 'none';
-            document.body.appendChild(canvas);
-            
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            const columns = Math.floor(canvas.width / 20);
-            const drops = Array(columns).fill(0);
-            
-            let frameCount = 0;
-            const interval = setInterval(() => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#32b8c6';
-                ctx.font = '15px monospace';
-                
-                drops.forEach((y, i) => {
-                    const char = chars[Math.floor(Math.random() * chars.length)];
-                    ctx.fillText(char, i * 20, y * 20);
-                    if (y * 20 > canvas.height && Math.random() > 0.95) drops[i] = 0;
-                    drops[i]++;
-                });
-                
-                frameCount++;
-                if (frameCount > 200) {
-                    clearInterval(interval);
-                    canvas.remove();
-                }
-            }, 33);
-        }
-
-        // Konami Code
-        function checkKonami(key) {
-            konamiCode.push(key);
-            if (konamiCode.length > konamiSequence.length) konamiCode.shift();
-            
-            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-                achievements.konamiUnlocked = true;
-                showAchievement('🎮 Konami Code Unlocked! Try typing "konami" in command palette');
-                createMatrixRain();
-            }
-        }
-
-        // Skills Visualization
-        function renderSkills() {
-            const container = document.getElementById('skillsContainer');
-            container.innerHTML = skills.map(skill => `
-                <div class="skill-bar">
-                    <div class="skill-name">
-                        <span>${skill.name}</span>
-                        <span>${skill.level}%</span>
-                    </div>
-                    <div class="skill-progress">
-                        <div class="skill-fill" style="--skill-width: ${skill.level}%"></div>
-                    </div>
-                </div>
-            `).join('');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.querySelectorAll('.skill-fill').forEach(fill => {
-                            fill.classList.add('animate');
-                        });
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            observer.observe(container);
-        }
-
-        // Initialize
-        window.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            renderProjects();
-            renderSkills();
-            typeRole();
-            addMagneticEffect();
-            
-            // Track sections visited
-            ['landing', 'dashboard', 'voice'].forEach(section => {
-                const element = document.getElementById(section);
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            achievements.sectionsVisited.add(section);
-                            if (achievements.sectionsVisited.size === 3) {
-                                showAchievement('🗺️ Explorer - Visited all sections!');
-                            }
-                        }
-                    });
-                });
-                observer.observe(element);
-            });
-        });
-
-        // Event Listeners
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.9) createCursorTrail(e);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                toggleCommandPalette();
-            }
-            checkKonami(e.key);
-        });
-
-        document.getElementById('commandInput')?.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                handleCommand(e.target.value);
-                e.target.value = '';
-            } else if (e.key === 'Escape') {
-                toggleCommandPalette();
-            }
-        });
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
