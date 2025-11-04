@@ -1,9 +1,1533 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Shah - AI & Voice Assistant Developer</title>
+    <style>
+        :root {
+            --color-primary: #32b8c6;
+            --color-secondary: #1d7480;
+            --color-accent: #ff5459;
+            --color-bg-dark: #0a0e12;
+            --color-bg-darker: #060809;
+            --color-text: #f5f5f5;
+            --color-text-muted: #a7a9a9;
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-bg-darker);
+            color: var(--color-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0e12 0%, #1a1f2e 50%, #0a0e12 100%);
+            z-index: -2;
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--color-primary), transparent);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+            transition: transform 0.1s ease;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.15;
+            }
+            90% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 14, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(50, 184, 198, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s var(--ease-smooth);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.3s var(--ease-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Landing Page */
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .tech-icon {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float-icon 3s ease-in-out infinite;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .tech-icon:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .tech-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .tech-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 0.5s; }
+        .tech-icon:nth-child(3) { bottom: 30%; left: 5%; animation-delay: 1s; }
+        .tech-icon:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 1.5s; }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-primary), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s var(--ease-smooth);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.2s var(--ease-smooth) backwards;
+            min-height: 2rem;
+        }
+
+        .typing-animation {
+            border-right: 3px solid var(--color-primary);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: var(--color-primary); }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s 0.4s var(--ease-smooth) backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s 0.6s var(--ease-smooth) backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-bg-dark);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(50, 184, 198, 0.4);
+        }
+
+        .magnetic-btn {
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: var(--color-bg-dark);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            min-height: 100vh;
+            padding: 8rem 5% 5rem;
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--color-primary), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 4rem;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: rgba(50, 184, 198, 0.1);
+            border: 1px solid rgba(50, 184, 198, 0.3);
+            border-radius: 25px;
+            color: var(--color-text);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-bg-dark);
+            border-color: var(--color-primary);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(50, 184, 198, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s var(--ease-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: transform 0.4s var(--ease-smooth);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05) rotateZ(2deg);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(50, 184, 198, 0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(50, 184, 198, 0.2);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .project-tech {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(50, 184, 198, 0.2);
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .project-description {
+            color: var(--color-text-muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s var(--ease-smooth);
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Voice Assistant Section */
+        .voice-assistant {
+            min-height: 100vh;
+            padding: 8rem 5% 5rem;
+            display: none;
+        }
+
+        .voice-assistant.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .voice-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(50, 184, 198, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-top: 2rem;
+        }
+
+        .voice-visualizer {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .voice-orb {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--color-primary), var(--color-secondary));
+            box-shadow: 0 0 50px var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            position: relative;
+        }
+
+        .voice-orb:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 80px var(--color-primary);
+        }
+
+        .voice-orb.listening {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 50px var(--color-primary);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 100px var(--color-primary);
+            }
+        }
+
+        .voice-icon {
+            font-size: 4rem;
+            color: var(--color-bg-dark);
+        }
+
+        .voice-status {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            animation: slideIn 0.3s var(--ease-smooth);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .chat-message.user {
+            background: rgba(50, 184, 198, 0.2);
+            margin-left: 20%;
+            text-align: right;
+        }
+
+        .chat-message.assistant {
+            background: rgba(255, 255, 255, 0.05);
+            margin-right: 20%;
+        }
+
+        .voice-instructions {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .voice-instructions strong {
+            color: var(--color-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .landing {
+                padding: 4rem 5%;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .voice-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .chat-message.user {
+                margin-left: 10%;
+            }
+
+            .chat-message.assistant {
+                margin-right: 10%;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-secondary);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(50, 184, 198, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--color-primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(50, 184, 198, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+            font-size: 1.2rem;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Achievement Toast */
+        .achievement-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(50, 184, 198, 0.95);
+            color: var(--color-bg-dark);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(50, 184, 198, 0.4);
+            z-index: 1002;
+            animation: slideInRight 0.5s var(--ease-smooth);
+            display: none;
+        }
+
+        .achievement-toast.show {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Command Palette */
+        .command-palette {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            background: rgba(10, 14, 18, 0.98);
+            border: 1px solid rgba(50, 184, 198, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem;
+            z-index: 1003;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .command-palette.show {
+            display: block;
+            animation: scaleIn 0.3s var(--ease-smooth);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .command-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(50, 184, 198, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: var(--color-text);
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 1rem;
+        }
+
+        .command-results {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .command-item {
+            padding: 0.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .command-item:hover {
+            background: rgba(50, 184, 198, 0.2);
+        }
+
+        /* Skills Visualization */
+        .skills-section {
+            margin-top: 4rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(50, 184, 198, 0.2);
+            border-radius: 20px;
+        }
+
+        .skill-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-muted);
+        }
+
+        .skill-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            border-radius: 10px;
+            width: 0;
+            transition: width 1s var(--ease-smooth);
+        }
+
+        .skill-fill.animate {
+            width: var(--skill-width);
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <div class="bg-gradient"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" onclick="toggleTheme('dark')" title="Dark Mode">🌙</button>
+        <button class="theme-btn" onclick="toggleTheme('light')" title="Light Mode">☀️</button>
+        <button class="theme-btn" onclick="toggleTheme('neon')" title="Neon Mode">✨</button>
+    </div>
+
+    <!-- Achievement Toast -->
+    <div class="achievement-toast" id="achievementToast"></div>
+
+    <!-- Command Palette -->
+    <div class="command-palette" id="commandPalette">
+        <input type="text" class="command-input" id="commandInput" placeholder="Type a command... (try 'matrix', 'konami', 'skills')">
+        <div class="command-results" id="commandResults"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo" onclick="showSection('landing')">YS</a>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showSection('landing')">Home</a></li>
+            <li><a href="#" onclick="showSection('dashboard')">Projects</a></li>
+            <li><a href="#" onclick="showSection('voice')">Voice AI</a></li>
+            <li><a href="https://github.com/ykshah1309" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <!-- Landing Page -->
+    <section class="landing active" id="landing">
+        <div class="hero-content">
+            <div class="floating-icons">
+                <div class="tech-icon" title="Python">🐍</div>
+                <div class="tech-icon" title="AI/ML">🤖</div>
+                <div class="tech-icon" title="React">⚛️</div>
+                <div class="tech-icon" title="TypeScript">📘</div>
+            </div>
+            <h1 class="hero-title">Yash Shah</h1>
+            <p class="hero-subtitle typing-animation" id="typingText"></p>
+            <p class="hero-description">
+                Building practical and scalable automation solutions for real-world tasks. 
+                I specialize in creating intelligent systems that bridge the gap between complex technology and user-friendly applications.
+            </p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary magnetic-btn" onclick="showSection('dashboard')">Explore Projects</button>
+                <button class="btn btn-secondary magnetic-btn" onclick="showSection('voice')">Talk to My AI</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">Interactive showcase of my work in AI, automation, and web development</p>
+
+        <div class="filter-controls">
+            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+            <button class="filter-btn" onclick="filterProjects('ai')">AI & ML</button>
+            <button class="filter-btn" onclick="filterProjects('web')">Web Apps</button>
+            <button class="filter-btn" onclick="filterProjects('automation')">Automation</button>
+            <button class="filter-btn" onclick="filterProjects('ar')">AR/3D</button>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <!-- Skills Visualization -->
+        <div class="skills-section">
+            <h3 class="section-title" style="font-size: 2rem; margin-bottom: 2rem;">Technical Proficiency</h3>
+            <div id="skillsContainer"></div>
+        </div>
+    </section>
+
+    <!-- Voice Assistant Section -->
+    <section class="voice-assistant" id="voice">
+        <h2 class="section-title">AI Voice Assistant</h2>
+        <p class="section-subtitle">Ask me anything about my experience, projects, and skills</p>
+
+        <div class="voice-container">
+            <div class="voice-visualizer">
+                <div class="voice-orb" id="voiceOrb" onclick="toggleVoiceAssistant()">
+                    <span class="voice-icon">🎙️</span>
+                </div>
+            </div>
+
+            <p class="voice-status" id="voiceStatus">Click the microphone to start</p>
+
+            <div class="chat-container" id="chatContainer"></div>
+
+            <div class="voice-instructions">
+                <strong>Try asking:</strong><br>
+                "What technologies do you know?"<br>
+                "Tell me about your AI projects"<br>
+                "What's your experience with Python?"<br>
+                "Show me your contact information"
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Projects Data
+        const projects = [
+            {
+                id: 1,
+                icon: '🤖',
+                title: 'creb-ai',
+                tech: 'TypeScript, AI/ML',
+                category: 'ai',
+                description: 'Intelligent voice assistant platform leveraging Natural Language Understanding (NLU) and ML pipelines for natural interaction. Features advanced speech recognition and contextual responses.',
+                link: 'https://github.com/ykshah1309/creb-ai',
+                image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&auto=format&fit=crop'
+            },
+            {
+                id: 2,
+                icon: '💼',
+                title: 'ReputeFlow',
+                tech: 'Python, AWS',
+                category: 'web',
+                description: 'Scalable B2B web platform for business reputation management and analytics. Includes real-time data processing, comprehensive dashboard, and automated reporting features.',
+                link: 'https://github.com/ykshah1309/ReputeFlow',
+                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop'
+            },
+            {
+                id: 3,
+                icon: '🎨',
+                title: '3D-AR Portfolio',
+                tech: 'Unity, Zapworks',
+                category: 'ar',
+                description: 'Interactive 3D and augmented reality portfolio showcasing creative technical projects. Features immersive AR business card and 3D project visualizations.',
+                link: 'https://github.com/ykshah1309/3D-AR-portfolio',
+                image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop'
+            },
+            {
+                id: 4,
+                icon: '🎵',
+                title: 'GrooveFusion',
+                tech: 'Python, ML',
+                category: 'ai',
+                description: 'Hackathon-winning project enabling collaborative music creation and sharing. Implements ML-based music recommendation and real-time collaboration features.',
+                link: 'https://github.com/ykshah1309/GirlHacks_Team-47_GrooveFusion',
+                image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&auto=format&fit=crop'
+            },
+            {
+                id: 5,
+                icon: '📦',
+                title: 'Pandoras Box',
+                tech: 'TypeScript, Automation',
+                category: 'automation',
+                description: 'Comprehensive automation toolkit featuring productivity enhancement scripts and utilities. Includes Windows automation, task scheduling, and workflow optimization tools.',
+                link: 'https://github.com/ykshah1309/pandoras-box',
+                image: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=800&auto=format&fit=crop'
+            },
+            {
+                id: 6,
+                icon: '🧠',
+                title: 'ML Competition Projects',
+                tech: 'Python, TensorFlow',
+                category: 'ai',
+                description: 'Collection of machine learning solutions developed for competitive coding and hackathons. Features data preprocessing, model optimization, and ensemble techniques.',
+                link: 'https://github.com/ykshah1309/TRINIT_ENEMIES-OF-SYNTAXX_ML-03',
+                image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&auto=format&fit=crop'
+            }
+        ];
+
+        const skills = [
+            { name: 'Python', level: 95 },
+            { name: 'TypeScript/JavaScript', level: 90 },
+            { name: 'AI/ML (TensorFlow, PyTorch)', level: 85 },
+            { name: 'React & Node.js', level: 88 },
+            { name: 'AWS & Cloud Services', level: 80 },
+            { name: 'Windows Automation', level: 92 },
+            { name: 'FastAPI & Backend', level: 87 },
+            { name: 'NLU & Voice Assistants', level: 90 }
+        ];
+
+        const typingRoles = [
+            'AI Engineer',
+            'Full-Stack Developer',
+            'ML Enthusiast',
+            'Voice Assistant Developer',
+            'Automation Specialist'
+        ];
+
+        let currentRoleIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let achievements = {
+            projectsViewed: 0,
+            sectionsVisited: new Set(),
+            voiceUsed: false,
+            konamiUnlocked: false
+        };
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+        // Knowledge Base for Voice Assistant
+        const knowledgeBase = {
+            skills: {
+                languages: ['Python', 'TypeScript', 'JavaScript'],
+                ai_ml: ['Natural Language Understanding', 'ML Pipeline Design', 'Voice Assistants', 'TensorFlow', 'PyTorch'],
+                automation: ['Windows Automation', 'Process Automation', 'Task Scheduling'],
+                web: ['Full-stack Development', 'API Design', 'Real-time Applications', 'React', 'Node.js', 'FastAPI'],
+                cloud: ['AWS', 'CI/CD', 'Containerization']
+            },
+            experience: {
+                research: 'Research Assistant at New Jersey Institute of Technology conducting survey analysis, UX metrics, and building machine-learning pipelines',
+                projects: 'Multiple AI and automation projects including voice assistants, B2B web applications, and Windows automation systems'
+            },
+            contact: {
+                email: 'ykshah1309@gmail.com',
+                linkedin: 'linkedin.com/in/ykshah1309',
+                github: 'github.com/ykshah1309',
+                location: 'Harrison, NJ'
+            },
+            education: 'Computer Science student with focus on AI, machine learning, and automation systems',
+            interests: ['AI assistant development', 'Voice automation systems', 'Windows system integration', 'Web application development', 'Machine learning implementations']
+        };
+
+        // Initialize Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 100 + 50 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Navigation
+        function showSection(sectionName) {
+            const sections = ['landing', 'dashboard', 'voice'];
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                if (section === sectionName) {
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        }
+
+        // Projects Grid
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById('projectsGrid');
+            const filteredProjects = filter === 'all' 
+                ? projects 
+                : projects.filter(p => p.category === filter);
+
+            grid.innerHTML = filteredProjects.map(project => `
+                <div class="project-card" data-category="${project.category}" onclick="trackProjectView()">
+                    <img src="${project.image}" alt="${project.title}" class="project-image" loading="lazy">
+                    <div class="project-icon">${project.icon}</div>
+                    <h3 class="project-title">${project.title}</h3>
+                    <span class="project-tech">${project.tech}</span>
+                    <p class="project-description">${project.description}</p>
+                    <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="project-link">
+                        View Project →
+                    </a>
+                </div>
+            `).join('');
+
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add mouse tracking effect
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    card.style.setProperty('--mouse-x', x + '%');
+                    card.style.setProperty('--mouse-y', y + '%');
+                });
+            });
+        }
+
+        function filterProjects(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderProjects(category);
+        }
+
+        // Voice Assistant
+        let isListening = false;
+        let recognition;
+        let synthesis = window.speechSynthesis;
+
+        function initVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'en-US';
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    handleUserInput(transcript);
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    updateVoiceStatus('Error: Please try again');
+                    stopListening();
+                };
+
+                recognition.onend = () => {
+                    stopListening();
+                };
+
+                return true;
+            } else {
+                alert('Speech recognition is not supported in your browser. Please use Chrome, Edge, or Safari.');
+                return false;
+            }
+        }
+
+        function toggleVoiceAssistant() {
+            if (!recognition && !initVoiceRecognition()) {
+                return;
+            }
+
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
+            isListening = true;
+            document.getElementById('voiceOrb').classList.add('listening');
+            updateVoiceStatus('Listening... Speak now');
+            recognition.start();
+        }
+
+        function stopListening() {
+            isListening = false;
+            document.getElementById('voiceOrb').classList.remove('listening');
+            updateVoiceStatus('Click the microphone to start');
+            if (recognition) {
+                recognition.stop();
+            }
+        }
+
+        function updateVoiceStatus(status) {
+            document.getElementById('voiceStatus').textContent = status;
+        }
+
+        function addMessage(text, isUser) {
+            const chatContainer = document.getElementById('chatContainer');
+            const message = document.createElement('div');
+            message.className = `chat-message ${isUser ? 'user' : 'assistant'}`;
+            message.textContent = text;
+            chatContainer.appendChild(message);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function speak(text) {
+            if (synthesis.speaking) {
+                synthesis.cancel();
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            utterance.onstart = () => {
+                updateVoiceStatus('Speaking...');
+            };
+
+            utterance.onend = () => {
+                updateVoiceStatus('Click the microphone to start');
+            };
+
+            synthesis.speak(utterance);
+        }
+
+        function handleUserInput(input) {
+            addMessage(input, true);
+            updateVoiceStatus('Processing...');
+
+            const response = generateResponse(input.toLowerCase());
+            
+            setTimeout(() => {
+                addMessage(response, false);
+                speak(response);
+            }, 500);
+        }
+
+        function generateResponse(input) {
+            // Skills queries
+            if (input.includes('skill') || input.includes('technolog') || input.includes('know')) {
+                if (input.includes('language')) {
+                    return `I'm proficient in ${knowledgeBase.skills.languages.join(', ')}. I primarily work with Python for AI and automation projects, and TypeScript/JavaScript for web development.`;
+                }
+                return `I specialize in several areas: AI and ML with technologies like ${knowledgeBase.skills.ai_ml.slice(0, 3).join(', ')}, full-stack web development using ${knowledgeBase.skills.web.slice(0, 3).join(', ')}, and cloud technologies including ${knowledgeBase.skills.cloud.join(', ')}.`;
+            }
+
+            // Projects queries
+            if (input.includes('project') || input.includes('work') || input.includes('built')) {
+                if (input.includes('ai') || input.includes('voice') || input.includes('assistant')) {
+                    return `I've built several AI projects, most notably creb-ai, an intelligent voice assistant platform with NLU and ML pipelines, and GrooveFusion, a music collaboration platform with ML-based recommendations.`;
+                }
+                if (input.includes('web') || input.includes('application')) {
+                    return `My web development work includes ReputeFlow, a scalable B2B platform for reputation management with AWS integration, and various full-stack applications using React and Node.js.`;
+                }
+                return `I've worked on diverse projects including AI voice assistants, B2B web applications, Windows automation systems, AR portfolios, and ML competition solutions. Check out the Projects section to see them all!`;
+            }
+
+            // Experience queries
+            if (input.includes('experience') || input.includes('background') || input.includes('worked')) {
+                return `I'm a ${knowledgeBase.education}. ${knowledgeBase.experience.research}. I've developed ${knowledgeBase.experience.projects}.`;
+            }
+
+            // Python specific
+            if (input.includes('python')) {
+                return `I use Python extensively for AI/ML projects, automation scripts, and backend development. I've built ML pipelines with TensorFlow and PyTorch, developed FastAPI services, and created Windows automation systems with Python.`;
+            }
+
+            // Contact queries
+            if (input.includes('contact') || input.includes('email') || input.includes('reach') || input.includes('hire')) {
+                return `You can reach me at ${knowledgeBase.contact.email}. I'm also on LinkedIn at ${knowledgeBase.contact.linkedin} and GitHub at ${knowledgeBase.contact.github}. I'm based in ${knowledgeBase.contact.location}.`;
+            }
+
+            // Education queries
+            if (input.includes('education') || input.includes('study') || input.includes('degree')) {
+                return knowledgeBase.education;
+            }
+
+            // Interests queries
+            if (input.includes('interest') || input.includes('passionate') || input.includes('like')) {
+                return `I'm passionate about ${knowledgeBase.interests.slice(0, 3).join(', ')}, and exploring new ways to make technology more accessible and practical.`;
+            }
+
+            // Location queries
+            if (input.includes('location') || input.includes('where') || input.includes('based')) {
+                return `I'm currently based in ${knowledgeBase.contact.location}.`;
+            }
+
+            // Default response
+            return `I'm Yash Shah, an AI and voice assistant developer specializing in automation and web development. Try asking about my skills, projects, experience, or how to contact me!`;
+        }
+
+        // Typing Animation
+        function typeRole() {
+            const element = document.getElementById('typingText');
+            const currentRole = typingRoles[currentRoleIndex];
+
+            if (!isDeleting && currentCharIndex < currentRole.length) {
+                element.textContent = currentRole.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                setTimeout(typeRole, 100);
+            } else if (isDeleting && currentCharIndex > 0) {
+                element.textContent = currentRole.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                setTimeout(typeRole, 50);
+            } else if (!isDeleting && currentCharIndex === currentRole.length) {
+                setTimeout(() => { isDeleting = true; typeRole(); }, 2000);
+            } else if (isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentRoleIndex = (currentRoleIndex + 1) % typingRoles.length;
+                setTimeout(typeRole, 500);
+            }
+        }
+
+        // Cursor Trail Effect
+        function createCursorTrail(e) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.style.transform = 'scale(0)';
+                trail.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => trail.remove(), 500);
+        }
+
+        // Magnetic Button Effect
+        function addMagneticEffect() {
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) translateY(-3px)`;
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+        }
+
+        // Theme Toggle
+        function toggleTheme(theme) {
+            const root = document.documentElement;
+            if (theme === 'light') {
+                root.style.setProperty('--color-bg-dark', '#f5f5f5');
+                root.style.setProperty('--color-bg-darker', '#ffffff');
+                root.style.setProperty('--color-text', '#0a0e12');
+                root.style.setProperty('--color-text-muted', '#626c7c');
+            } else if (theme === 'neon') {
+                root.style.setProperty('--color-primary', '#ff00ff');
+                root.style.setProperty('--color-secondary', '#00ffff');
+                root.style.setProperty('--color-accent', '#ffff00');
+            } else {
+                root.style.setProperty('--color-bg-dark', '#0a0e12');
+                root.style.setProperty('--color-bg-darker', '#060809');
+                root.style.setProperty('--color-text', '#f5f5f5');
+                root.style.setProperty('--color-text-muted', '#a7a9a9');
+                root.style.setProperty('--color-primary', '#32b8c6');
+            }
+            showAchievement('🎨 Theme Changed!');
+        }
+
+        // Achievement System
+        function showAchievement(message) {
+            const toast = document.getElementById('achievementToast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function trackProjectView() {
+            achievements.projectsViewed++;
+            if (achievements.projectsViewed === 3) {
+                showAchievement('🎉 You\'ve explored 3 projects!');
+            }
+            if (achievements.projectsViewed === 6) {
+                showAchievement('🏆 Portfolio Master - Viewed all projects!');
+            }
+        }
+
+        // Command Palette
+        function toggleCommandPalette() {
+            const palette = document.getElementById('commandPalette');
+            const input = document.getElementById('commandInput');
+            
+            if (palette.classList.contains('show')) {
+                palette.classList.remove('show');
+            } else {
+                palette.classList.add('show');
+                input.focus();
+            }
+        }
+
+        function handleCommand(cmd) {
+            const command = cmd.toLowerCase().trim();
+            
+            if (command === 'matrix') {
+                createMatrixRain();
+                showAchievement('🟢 Matrix Mode Activated!');
+            } else if (command === 'skills') {
+                showSection('dashboard');
+                document.querySelector('.skills-section').scrollIntoView({ behavior: 'smooth' });
+            } else if (command === 'konami' || achievements.konamiUnlocked) {
+                showAchievement('🎮 Konami Code Unlocked!');
+                document.body.style.transform = 'rotate(360deg)';
+                setTimeout(() => document.body.style.transform = '', 1000);
+            } else if (command.startsWith('goto ')) {
+                const section = command.replace('goto ', '');
+                if (['landing', 'dashboard', 'voice'].includes(section)) {
+                    showSection(section);
+                }
+            }
+            
+            toggleCommandPalette();
+        }
+
+        function createMatrixRain() {
+            const chars = '01アイウエオカキクケコサシスセソタチツテト';
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.zIndex = '10000';
+            canvas.style.pointerEvents = 'none';
+            document.body.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const columns = Math.floor(canvas.width / 20);
+            const drops = Array(columns).fill(0);
+            
+            let frameCount = 0;
+            const interval = setInterval(() => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#32b8c6';
+                ctx.font = '15px monospace';
+                
+                drops.forEach((y, i) => {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(char, i * 20, y * 20);
+                    if (y * 20 > canvas.height && Math.random() > 0.95) drops[i] = 0;
+                    drops[i]++;
+                });
+                
+                frameCount++;
+                if (frameCount > 200) {
+                    clearInterval(interval);
+                    canvas.remove();
+                }
+            }, 33);
+        }
+
+        // Konami Code
+        function checkKonami(key) {
+            konamiCode.push(key);
+            if (konamiCode.length > konamiSequence.length) konamiCode.shift();
+            
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                achievements.konamiUnlocked = true;
+                showAchievement('🎮 Konami Code Unlocked! Try typing "konami" in command palette');
+                createMatrixRain();
+            }
+        }
+
+        // Skills Visualization
+        function renderSkills() {
+            const container = document.getElementById('skillsContainer');
+            container.innerHTML = skills.map(skill => `
+                <div class="skill-bar">
+                    <div class="skill-name">
+                        <span>${skill.name}</span>
+                        <span>${skill.level}%</span>
+                    </div>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="--skill-width: ${skill.level}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+                            fill.classList.add('animate');
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(container);
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            renderProjects();
+            renderSkills();
+            typeRole();
+            addMagneticEffect();
+            
+            // Track sections visited
+            ['landing', 'dashboard', 'voice'].forEach(section => {
+                const element = document.getElementById(section);
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            achievements.sectionsVisited.add(section);
+                            if (achievements.sectionsVisited.size === 3) {
+                                showAchievement('🗺️ Explorer - Visited all sections!');
+                            }
+                        }
+                    });
+                });
+                observer.observe(element);
+            });
+        });
+
+        // Event Listeners
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) createCursorTrail(e);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleCommandPalette();
+            }
+            checkKonami(e.key);
+        });
+
+        document.getElementById('commandInput')?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                handleCommand(e.target.value);
+                e.target.value = '';
+            } else if (e.key === 'Escape') {
+                toggleCommandPalette();
+            }
+        });
+    </script>
 </body>
 </html>
